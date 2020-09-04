@@ -19,9 +19,10 @@
               <i class="fa fa-calendar"></i><%= @post_image.created_at.strftime('%Y/%m/%d') %>
             </li>
 
-               <!--いいね記載-->
+               <!--以下いいね機能-->
                <% if @post_image.favorited_by?(current_user) %>
                <li>
+                 <!--ルーティンエラー発生中-->
                  <%= link_to post_image_favorites_path(@post_image), method: :delete do %>
                   <i class="fa fa-heart" aria-hidden="true" style="color: red"></i>
                   <%= @post_image.favorites.count %> いいね
@@ -35,9 +36,15 @@
               　  <% end %>
                </li>
                <% end %>
+               <!--ここまでいいね機能-->
             <li>
               <i class="fa fa-comment"></i>
                 <a href="#comments"><%= @post_image.post_comments.count %></a>
+            </li>
+            <li>
+              <% if @post_image.user == current_user %>
+                <%= link_to "削除", post_image_path(@post_image), method: :delete %>
+              <% end %>
             </li>
           </ul>
           <div class="post-content-inner mt-20">
